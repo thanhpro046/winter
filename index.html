@@ -190,6 +190,78 @@
       background: white;
       font-size: 14px;
     }
+    
+/* Nền ánh sáng chuyển động */
+body {
+  background-size: 200% 200%;
+  animation: winterGlow 12s ease-in-out infinite alternate;
+}
+
+@keyframes winterGlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Người tuyết lắc lư */
+.snowman {
+  display: inline-block;
+  animation: snowmanDance 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(180, 225, 255, .7));
+}
+
+@keyframes snowmanDance {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(5deg);
+  }
+}
+
+/* Nút bấm phát sáng */
+button {
+  transition: transform .25s ease, box-shadow .25s ease,
+              filter .25s ease;
+}
+
+#yes:hover, #yes:focus-visible {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 28px rgba(255, 79, 145, .7);
+  filter: brightness(1.12);
+}
+
+#no:hover, #no:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 0 22px rgba(220, 240, 255, .6);
+}
+
+/* Thẻ nội dung nổi nhẹ */
+.card {
+  animation: appear .9s ease, cardFloat 5s ease-in-out 1s infinite;
+}
+
+@keyframes cardFloat {
+  0%, 100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+/* Tôn trọng cài đặt giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
   </style>
 </head>
 
@@ -295,7 +367,6 @@
         videoError.style.display = "block";
       }
     });
-    }
   </script>
 </body>
 </html>
