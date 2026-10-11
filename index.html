@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -17,59 +16,56 @@
     body {
       min-height: 100vh;
       overflow: hidden;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Arial, sans-serif;
       color: white;
       background:
-        radial-gradient(ellipse at top, #334f83 0%, transparent 60%),
-        linear-gradient(160deg, #101a38, #182b50 55%, #080e20);
+        radial-gradient(ellipse at top, #354f83, transparent 65%),
+        linear-gradient(160deg, #101a38, #1a3158 55%, #080e20);
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
     }
 
-    /* Tuyết rơi */
     #snow {
       position: fixed;
       inset: 0;
-      overflow: hidden;
       pointer-events: none;
+      overflow: hidden;
       z-index: 1;
     }
 
     .flake {
       position: absolute;
-      top: -20px;
+      top: -25px;
       color: white;
+      animation: snowfall linear infinite;
       opacity: 0.85;
-      animation: fall linear infinite;
-      user-select: none;
     }
 
-    @keyframes fall {
+    @keyframes snowfall {
       to {
         transform: translateY(110vh) rotate(360deg);
       }
     }
 
-    /* Hộp nội dung */
     .card {
       position: relative;
       z-index: 2;
       width: min(90%, 430px);
       padding: 35px 22px;
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,.25);
       border-radius: 28px;
-      background: rgba(255,255,255,0.10);
+      background: rgba(255,255,255,.10);
       backdrop-filter: blur(12px);
-      box-shadow: 0 15px 50px rgba(0,0,0,0.25);
-      animation: appear 1s ease;
+      box-shadow: 0 15px 50px rgba(0,0,0,.3);
+      animation: appear .9s ease;
     }
 
     @keyframes appear {
       from {
         opacity: 0;
-        transform: translateY(20px) scale(0.95);
+        transform: translateY(20px) scale(.95);
       }
       to {
         opacity: 1;
@@ -89,70 +85,71 @@
 
     h1 {
       font-size: clamp(24px, 6vw, 32px);
-      line-height: 1.35;
-      margin-bottom: 14px;
-      text-shadow: 0 0 18px rgba(173,216,255,0.45);
+      line-height: 1.4;
+      margin-bottom: 15px;
+      text-shadow: 0 0 18px rgba(173,216,255,.45);
     }
 
     .subtitle {
       color: #d9eaff;
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.7;
       margin-bottom: 25px;
     }
 
     .buttons {
       display: flex;
+      align-items: center;
       justify-content: center;
       gap: 14px;
       flex-wrap: wrap;
     }
 
     button {
-      border: none;
+      border: 0;
       border-radius: 30px;
       padding: 13px 28px;
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform .2s;
       -webkit-tap-highlight-color: transparent;
     }
 
     button:active {
-      transform: scale(0.94);
+      transform: scale(.94);
     }
 
     #yes {
-      color: #fff;
+      color: white;
       background: linear-gradient(135deg, #ff80b5, #ff4f91);
-      box-shadow: 0 5px 20px rgba(255,79,145,0.35);
+      box-shadow: 0 5px 20px rgba(255,79,145,.35);
     }
 
     #no {
       color: #23365b;
       background: #f1f7ff;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
     }
 
     .footer {
       margin-top: 25px;
-      font-size: 12px;
       color: #c5d8f6;
+      font-size: 12px;
     }
 
-    /* Màn hình phát video hù */
+    /* Màn hình video toàn màn hình */
     #scareScreen {
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 100;
+      z-index: 9999;
       background: #000;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
     }
 
     #scareVideo {
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -161,37 +158,37 @@
 
     #closeScare {
       position: absolute;
-      top: 15px;
-      right: 15px;
-      z-index: 101;
+      top: 14px;
+      right: 14px;
+      z-index: 10001;
       padding: 10px 15px;
       color: white;
-      background: rgba(40,40,40,0.75);
-      border: 1px solid rgba(255,255,255,0.5);
+      background: rgba(40,40,40,.75);
+      border: 1px solid rgba(255,255,255,.5);
       font-size: 14px;
     }
 
     #videoError {
       display: none;
       position: absolute;
-      z-index: 102;
-      left: 20px;
-      right: 20px;
+      z-index: 10000;
+      left: 18px;
+      right: 18px;
       bottom: 25px;
-      padding: 15px;
+      padding: 16px;
       border-radius: 12px;
       text-align: center;
-      font-size: 14px;
       line-height: 1.6;
-      background: rgba(30,30,30,0.9);
+      font-size: 14px;
+      background: rgba(30,30,30,.95);
     }
 
-    #videoError button {
-      margin-top: 10px;
-      padding: 10px 18px;
-      font-size: 14px;
+    #retryVideo {
+      display: block;
+      margin: 12px auto 0;
       color: #18213a;
       background: white;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -216,31 +213,37 @@
     <p class="footer">Made with ❄️ and a little bit of magic</p>
   </main>
 
-  <!-- Video jumpscare: đặt scare.mp4 cùng thư mục với index.html -->
-  <section id="scareScreen" aria-label="Video">
-    <video id="scareVideo" playsinline preload="auto">
+  <!-- Video scare.mp4 phải nằm cùng thư mục với index.html -->
+  <section id="scareScreen">
+    <video
+      id="scareVideo"
+      playsinline
+      webkit-playsinline
+      preload="auto"
+    >
       <source src="./scare.mp4" type="video/mp4">
-      Trình duyệt không hỗ trợ video.
+      Trình duyệt của bạn không hỗ trợ video.
     </video>
 
     <button id="closeScare" type="button">✕ Đóng</button>
 
     <div id="videoError">
-      Không phát được video. Hãy kiểm tra file
-      <strong>scare.mp4</strong> đã được tải lên GitHub chưa.
-      <br>
-      <button id="retryVideo" type="button">Thử phát lại</button>
+      Không phát được video!<br>
+      Hãy kiểm tra bạn đã tải file <b>scare.mp4</b>
+      lên GitHub cùng thư mục với index.html chưa.
+      <button id="retryVideo" type="button">Thử lại</button>
     </div>
   </section>
 
   <script>
-    // Tạo tuyết rơi
+    // TẠO TUYẾT RƠI
     const snow = document.getElementById("snow");
     const snowSymbols = ["❄", "❅", "❆", "•"];
 
     for (let i = 0; i < 45; i++) {
       const flake = document.createElement("span");
       flake.className = "flake";
+
       flake.textContent =
         snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
 
@@ -252,14 +255,22 @@
       snow.appendChild(flake);
     }
 
-    // Các thành phần video
+    // LẤY CÁC PHẦN TỬ VIDEO
+    const yesButton = document.getElementById("yes");
+    const noButton = document.getElementById("no");
     const scareScreen = document.getElementById("scareScreen");
     const scareVideo = document.getElementById("scareVideo");
     const videoError = document.getElementById("videoError");
-    const closeScare = document.getElementById("closeScare");
+    const closeButton = document.getElementById("closeScare");
+    const retryButton = document.getElementById("retryVideo");
 
-    // Cả hai nút đều mở video
+    let openingVideo = false;
+
+    // PHÁT VIDEO KHI NHẤN SÍ HOẶC NO
     async function playScare() {
+      if (openingVideo) return;
+      openingVideo = true;
+
       scareScreen.style.display = "flex";
       videoError.style.display = "none";
 
@@ -269,33 +280,31 @@
         await scareVideo.play();
       } catch (error) {
         videoError.style.display = "block";
+      } finally {
+        openingVideo = false;
       }
     }
 
-    document.getElementById("yes").addEventListener("click", playScare);
-    document.getElementById("no").addEventListener("click", playScare);
+    yesButton.addEventListener("click", playScare);
+    noButton.addEventListener("click", playScare);
+    retryButton.addEventListener("click", playScare);
 
-    // Thử phát lại nếu gặp lỗi
-    document.getElementById("retryVideo").addEventListener("click", () => {
-      playScare();
+    // BÁO LỖI NẾU FILE VIDEO KHÔNG TẢI ĐƯỢC
+    scareVideo.addEventListener("error", () => {
+      if (scareScreen.style.display === "flex") {
+        videoError.style.display = "block";
+      }
     });
 
-    // Đóng video và trở về trang chính
-    function stopScare() {
+    // ĐÓNG VIDEO ĐỂ QUAY LẠI TRANG CHÍNH
+    function closeVideo() {
       scareVideo.pause();
       scareVideo.currentTime = 0;
       scareScreen.style.display = "none";
       videoError.style.display = "none";
     }
 
-    closeScare.addEventListener("click", stopScare);
-
-    // Video kết thúc thì vẫn ở màn hình đen cho đến khi đóng
-    scareVideo.addEventListener("error", () => {
-      if (scareScreen.style.display === "flex") {
-        videoError.style.display = "block";
-      }
-    });
+    closeButton.addEventListener("click", closeVideo);
   </script>
 </body>
 </html>
