@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -21,9 +22,16 @@
       background:
         radial-gradient(ellipse at top, #354f83, transparent 65%),
         linear-gradient(160deg, #101a38, #1a3158 55%, #080e20);
+      background-size: 200% 200%;
+      animation: winterGlow 12s ease-in-out infinite alternate;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    @keyframes winterGlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
     }
 
     #snow {
@@ -59,7 +67,7 @@
       background: rgba(255,255,255,.10);
       backdrop-filter: blur(12px);
       box-shadow: 0 15px 50px rgba(0,0,0,.3);
-      animation: appear .9s ease;
+      animation: appear .9s ease, cardFloat 5s ease-in-out 1s infinite;
     }
 
     @keyframes appear {
@@ -73,14 +81,22 @@
       }
     }
 
-    .snowman {
-      font-size: 65px;
-      margin-bottom: 15px;
-      animation: float 3s ease-in-out infinite;
+    @keyframes cardFloat {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -6px; }
     }
 
-    @keyframes float {
-      50% { transform: translateY(-9px); }
+    .snowman {
+      display: inline-block;
+      font-size: 65px;
+      margin-bottom: 15px;
+      animation: snowmanDance 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(180,225,255,.7));
+    }
+
+    @keyframes snowmanDance {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-14px) rotate(5deg); }
     }
 
     h1 {
@@ -112,7 +128,7 @@
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
-      transition: transform .2s;
+      transition: transform .25s ease, box-shadow .25s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -131,13 +147,23 @@
       background: #f1f7ff;
     }
 
+    #yes:hover, #yes:focus-visible {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 0 28px rgba(255,79,145,.7);
+    }
+
+    #no:hover, #no:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: 0 0 22px rgba(220,240,255,.6);
+    }
+
     .footer {
       margin-top: 25px;
       color: #c5d8f6;
       font-size: 12px;
     }
 
-    /* Màn hình video toàn màn hình */
+    /* Màn hình video */
     #scareScreen {
       display: none;
       position: fixed;
@@ -155,20 +181,20 @@
       object-fit: contain;
       background: #000;
     }
-    
-/* Ẩn nút điều khiển video trên Safari iPhone */
-#scareVideo::-webkit-media-controls,
-#scareVideo::-webkit-media-controls-enclosure,
-#scareVideo::-webkit-media-controls-panel,
-#scareVideo::-webkit-media-controls-play-button,
-#scareVideo::-webkit-media-controls-start-playback-button,
-#scareVideo::-webkit-media-controls-timeline,
-#scareVideo::-webkit-media-controls-fullscreen-button {
-  display: none !important;
-  -webkit-appearance: none;
-}
 
+    /* Cố gắng ẩn thanh điều khiển trên Safari */
+    #scareVideo::-webkit-media-controls,
+    #scareVideo::-webkit-media-controls-enclosure,
+    #scareVideo::-webkit-media-controls-panel,
+    #scareVideo::-webkit-media-controls-play-button,
+    #scareVideo::-webkit-media-controls-start-playback-button,
+    #scareVideo::-webkit-media-controls-timeline,
+    #scareVideo::-webkit-media-controls-fullscreen-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
 
+    /* Nút đóng video */
     #closeScare {
       position: absolute;
       top: 14px;
@@ -181,6 +207,41 @@
       font-size: 14px;
     }
 
+    /* Chữ hiện giữa video khi bấm Đóng */
+    #closeMessage {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 10002;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      color: white;
+      font-size: clamp(25px, 6vw, 42px);
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow:
+        0 0 8px #70bfff,
+        0 0 18px #4c91ff,
+        2px 3px 5px rgba(0,0,0,.9);
+      background: transparent;
+      pointer-events: none;
+      animation: messageAppear .5s ease both;
+    }
+
+    @keyframes messageAppear {
+      from {
+        opacity: 0;
+        transform: scale(.7);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Thông báo lỗi video */
     #videoError {
       display: none;
       position: absolute;
@@ -203,78 +264,14 @@
       background: white;
       font-size: 14px;
     }
-    
-/* Nền ánh sáng chuyển động */
-body {
-  background-size: 200% 200%;
-  animation: winterGlow 12s ease-in-out infinite alternate;
-}
 
-@keyframes winterGlow {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 100% 100%;
-  }
-}
-
-/* Người tuyết lắc lư */
-.snowman {
-  display: inline-block;
-  animation: snowmanDance 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 12px rgba(180, 225, 255, .7));
-}
-
-@keyframes snowmanDance {
-  0%, 100% {
-    transform: translateY(0) rotate(-5deg);
-  }
-  50% {
-    transform: translateY(-14px) rotate(5deg);
-  }
-}
-
-/* Nút bấm phát sáng */
-button {
-  transition: transform .25s ease, box-shadow .25s ease,
-              filter .25s ease;
-}
-
-#yes:hover, #yes:focus-visible {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 0 28px rgba(255, 79, 145, .7);
-  filter: brightness(1.12);
-}
-
-#no:hover, #no:focus-visible {
-  transform: translateY(-4px);
-  box-shadow: 0 0 22px rgba(220, 240, 255, .6);
-}
-
-/* Thẻ nội dung nổi nhẹ */
-.card {
-  animation: appear .9s ease, cardFloat 5s ease-in-out 1s infinite;
-}
-
-@keyframes cardFloat {
-  0%, 100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 -6px;
-  }
-}
-
-/* Tôn trọng cài đặt giảm chuyển động */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-  }
-}
-
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 
@@ -298,7 +295,7 @@ button {
     <p class="footer">Made with ❄️ and a little bit of magic</p>
   </main>
 
-  <!-- Video scare.mp4 phải nằm cùng thư mục với index.html -->
+  <!-- Đặt scare.mp4 cùng thư mục với index.html -->
   <section id="scareScreen">
     <video
       id="scareVideo"
@@ -311,14 +308,15 @@ button {
     </video>
 
     <button id="closeScare" type="button">✕ Đóng</button>
+
     <div id="closeMessage">
-  không đâu bé ơi 💙❄️
-</div>
+      KHÔNG ĐÂU BÉ ƠI 💙❄️
+    </div>
 
     <div id="videoError">
       Không phát được video!<br>
-      Hãy kiểm tra bạn đã tải file <b>scare.mp4</b>
-      lên GitHub cùng thư mục với index.html chưa.
+      Hãy kiểm tra file <b>scare.mp4</b> đã được tải lên
+      GitHub cùng thư mục với index.html chưa.
       <button id="retryVideo" type="button">Thử lại</button>
     </div>
   </section>
@@ -331,7 +329,6 @@ button {
     for (let i = 0; i < 45; i++) {
       const flake = document.createElement("span");
       flake.className = "flake";
-
       flake.textContent =
         snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
 
@@ -343,63 +340,50 @@ button {
       snow.appendChild(flake);
     }
 
-    // LẤY CÁC PHẦN TỬ VIDEO
+    // LẤY CÁC PHẦN TỬ
     const yesButton = document.getElementById("yes");
     const noButton = document.getElementById("no");
     const scareScreen = document.getElementById("scareScreen");
     const scareVideo = document.getElementById("scareVideo");
     const videoError = document.getElementById("videoError");
     const closeButton = document.getElementById("closeScare");
+    const closeMessage = document.getElementById("closeMessage");
     const retryButton = document.getElementById("retryVideo");
 
-    let openingVideo = false;
-
-    // PHÁT VIDEO KHI NHẤN SÍ HOẶC NO
+    // MỞ VÀ PHÁT VIDEO
     async function playScare() {
+      scareScreen.style.display = "flex";
+      videoError.style.display = "none";
+      closeButton.style.display = "block";
+      closeMessage.style.display = "none";
 
-  scareScreen.style.display = "flex";
-
-  videoError.style.display = "none";
-
-  try {
-
-    scareVideo.pause();
-
-    scareVideo.currentTime = 0;
-
-    await scareVideo.play();
-
-  } catch (error) {
-
-    console.error("Lỗi phát video:", error);
-
-    videoError.style.display = "block";
-
-  }
-
-}
+      try {
+        scareVideo.pause();
+        scareVideo.currentTime = 0;
+        await scareVideo.play();
+      } catch (error) {
+        console.error("Lỗi phát video:", error);
+        videoError.style.display = "block";
+      }
+    }
 
     yesButton.addEventListener("click", playScare);
     noButton.addEventListener("click", playScare);
     retryButton.addEventListener("click", playScare);
 
-    // BÁO LỖI NẾU FILE VIDEO KHÔNG TẢI ĐƯỢC
+    // KHI BẤM ĐÓNG: GIỮ VIDEO, HIỆN CHỮ Ở GIỮA
+    closeButton.addEventListener("click", () => {
+      videoError.style.display = "none";
+      closeButton.style.display = "none";
+      closeMessage.style.display = "flex";
+    });
+
+    // BÁO LỖI NẾU VIDEO KHÔNG TẢI ĐƯỢC
     scareVideo.addEventListener("error", () => {
       if (scareScreen.style.display === "flex") {
         videoError.style.display = "block";
       }
     });
-    
-closeButton.addEventListener("click", () => {
-  // Ẩn nút đóng và màn hình video,
-  // nhưng KHÔNG dừng video
-  scareScreen.style.display = "none";
-  videoError.style.display = "none";
-
-  // Hiện lời nhắn
-  closeMessage.style.display = "flex";
-});
-
   </script>
 </body>
 </html>
