@@ -155,6 +155,19 @@
       object-fit: contain;
       background: #000;
     }
+    
+/* Ẩn nút điều khiển video trên Safari iPhone */
+#scareVideo::-webkit-media-controls,
+#scareVideo::-webkit-media-controls-enclosure,
+#scareVideo::-webkit-media-controls-panel,
+#scareVideo::-webkit-media-controls-play-button,
+#scareVideo::-webkit-media-controls-start-playback-button,
+#scareVideo::-webkit-media-controls-timeline,
+#scareVideo::-webkit-media-controls-fullscreen-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 
     #closeScare {
       position: absolute;
