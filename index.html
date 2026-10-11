@@ -373,6 +373,17 @@ button {
         videoError.style.display = "block";
       }
     });
+    
+closeButton.addEventListener("click", () => {
+  // Ẩn nút đóng và màn hình video,
+  // nhưng KHÔNG dừng video
+  scareScreen.style.display = "none";
+  videoError.style.display = "none";
+
+  // Hiện lời nhắn
+  closeMessage.style.display = "flex";
+});
+
   </script>
 </body>
 </html>
