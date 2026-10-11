@@ -340,22 +340,28 @@ button {
 
     // PHÁT VIDEO KHI NHẤN SÍ HOẶC NO
     async function playScare() {
-      if (openingVideo) return;
-      openingVideo = true;
 
-      scareScreen.style.display = "flex";
-      videoError.style.display = "none";
+  scareScreen.style.display = "flex";
 
-      try {
-        scareVideo.pause();
-        scareVideo.currentTime = 0;
-        await scareVideo.play();
-      } catch (error) {
-        videoError.style.display = "block";
-      } finally {
-        openingVideo = false;
-      }
-    }
+  videoError.style.display = "none";
+
+  try {
+
+    scareVideo.pause();
+
+    scareVideo.currentTime = 0;
+
+    await scareVideo.play();
+
+  } catch (error) {
+
+    console.error("Lỗi phát video:", error);
+
+    videoError.style.display = "block";
+
+  }
+
+}
 
     yesButton.addEventListener("click", playScare);
     noButton.addEventListener("click", playScare);
